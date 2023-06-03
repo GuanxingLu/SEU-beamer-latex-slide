@@ -1,5 +1,5 @@
-# WHU-Beamer-Theme
- A Beamer Theme of WHU for academic report, thesis and talk.
+# SEU-Beamer-Theme
+ A Beamer Theme for academic report, revised from WHU-Beamer-Theme.
 
 
 # Document
