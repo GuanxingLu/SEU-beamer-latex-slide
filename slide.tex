@@ -120,16 +120,6 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
 
 \begin{frame}{半监督子空间聚类简介}
 
- %    \vspace{-0.8cm}
- %    \begin{figure}[!t]
-	% 	%\centering
-	% 	\subfloat[样本点分布]{\includegraphics[width=3cm]{pic/zhiguantu4_datapart.pdf}
-	% 		\label{fig_data_sample}}
-	% 	\subfloat[监督信息]{\includegraphics[width=3cm]{pic/zhiguantu4_superpart.pdf}
-	% 		\label{fig_supervision}}
-	% 	\label{fig_data}
-	% \end{figure}
-
     \vspace{-0.3cm}
     \begin{figure}[htpb]
         \centering
@@ -159,8 +149,6 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
     	\end{equation}
     	
         \item 对于未知的成对关系，$\mathbf{B}$的对应初始值为0。
-        
-        %\item 通过约束传播，增多$\mathbf{B}$中非零项，即推断出未知的成对关系。
  
     \end{itemize}
 
@@ -192,8 +180,6 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
 \subsection{基于张量低秩表示的半监督子空间聚类模型}
 
 \begin{frame}{所提出模型总览}
-% 这个图重点讲。讲清楚之后，后面可以直接接到所提出的模型（或者说这个图的数学化表述）。后面在接求解算法即可。
-% 所提出的
 
     \begin{figure}[htpb]
         \centering
@@ -201,66 +187,7 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
         \caption{通过使用相似矩阵和成对约束矩阵相同的全局低秩结构，同时自适应地学习相似性并增强成对约束}
     \end{figure}
 
-    % \begin{itemize}
-    %     \vspace{-0.4cm}
-    %     \item 
-        
-    %     \item 
-    % \end{itemize}
 \end{frame}
-
-% \begin{frame}{模型创新点}
-
-% \begin{enumerate}
-%     \item 全局先验：首先，理想相似矩阵$\mathbf{Z}$是低秩的\cite{6180173, 7931596}。同时，理想的成对约束矩阵$\mathbf{B}$也是低秩的，因为它记录了样本的成对关系。本文观察到，它们的低秩结构也应该相同。
-%     \vspace{0.5cm}
-%     \item 因此，如果把它们拼接成一个三维张量$\mathcal{C}\in\mathbb{R}^{n\times n\times 2}$，即$\mathcal{C}(:,:,1)=\mathbf{Z}$和$\mathcal{C}(:,:,2)=\mathbf{B}$，$\mathcal{C}$应是低秩的。
-% \end{enumerate}
-
-% \end{frame}
-
-% \begin{frame}{张量自表示模型}
-
-%     \begin{itemize}
-        
-%         \item 采用张量核范数$\|\cdot\|_{\circledast}$\footnote{\cite{8606166} C. Lu, J. Feng, Y. Chen, W. Liu, Z. Lin, and S. Yan, “Tensor Robust Principal Component Analysis with a New Tensor Nuclear Norm,” IEEE TPAMI, vol. 42, no. 4, Art. no. 4, 2020.}来利用低秩全局先验(其他张量低秩范数也适用)
-% 	\begin{equation}
-% 		\begin{aligned}
-% 			&\min _{\mathcal{C}, \mathbf{E}, \mathbf{B}, \mathbf{Z} }\|\mathcal{C}\|_{\circledast}+\lambda\|\mathbf{E}\|_{2,1} \\
-% 			&\text { s.t. } \mathbf{X}=\mathbf{X Z}+\mathbf{E}, \mathcal{C}(:,:,1)=\mathbf{Z}, \mathcal{C}(:,:,2)=\mathbf{B},  \\
-% 			&\mathbf{B}_{i j}=s,(i, j) \in \Omega_{m}, \mathbf{B}_{i j}=-s,(i, j) \in \Omega_{c}. %\mathbf{B}=\mathbf{B}^{\top},
-% 		\end{aligned}
-% 		\label{eq_origin_woL}
-% 	\end{equation}
-	
-%         \item 通过求解Eq. \eqref{eq_origin_woL}，联合优化相似矩阵$\mathbf{Z}$和成对约束矩阵$\mathbf{B}$，$\mathbf{B}$将把监督信息传递到$\mathbf{Z}$，同时$\mathbf{Z}$从全局角度增强$\mathbf{B}$。
- 
-%     \end{itemize}
-
-% \end{frame}
-
-% \begin{frame}{拉普拉斯图正则化张量自表示模型}
-
-%     \begin{itemize}
-%             \item 局部先验：如果两个样本$\mathbf{x}_i$和$\mathbf{x}_j$在特征空间中彼此接近，它们应具有相似的成对关系，即$\mathbf{B}(:,i)$接近$\mathbf{B}(:,j)$。
-%             \vspace{0.2cm}
-            
-%             \item 构造$k$NN图$\mathbf{W}\!\in\!\mathbb{R}^{n\times n}$来刻画样本局部几何结构。
-%             \vspace{0.2cm}
-            
-%             \item 引入局部拉普拉斯正则项$\operatorname{Tr}(\mathbf{B L B^{\top}})$\footnote{其中$\mathbf{L}\!=\!\mathbf{D}\!-\!\mathbf{W}$是拉普拉斯矩阵，$\mathbf{D}$是度矩阵，$\mathbf{D}_{ii}\!=\!\sum_{j} \mathbf{W}_{ij}$。}，最终模型为
-        
-% 	\begin{equation}
-% 		\begin{aligned}
-% 			&\min _{\mathcal{C}, \mathbf{E}, \mathbf{B}, \mathbf{Z} }\|\mathcal{C}\|_{\circledast}+\lambda\|\mathbf{E}\|_{2,1}+\beta\operatorname{Tr}(\mathbf{B L B}^{\top}) \\
-% 			&\text { s.t. } \mathbf{X}=\mathbf{X Z}+\mathbf{E}, \mathcal{C}(:,:,1)=\mathbf{Z}, \mathcal{C}(:,:,2)=\mathbf{B},  \\
-% 			&\mathbf{B}_{i j}=s,(i, j) \in \Omega_{m}, \mathbf{B}_{i j}=-s,(i, j) \in \Omega_{c}. %\mathbf{B}=\mathbf{B}^{\top}. 
-% 		\end{aligned}
-% 		\label{eq_origin}
-% 	\end{equation}
-        
-%     \end{itemize}
-% \end{frame}
 
 \begin{frame}{所提出模型的数学形式}
 
@@ -271,7 +198,7 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
 		\begin{aligned}
 			&\min _{\mathcal{C}, \mathbf{E}, \mathbf{B}, \mathbf{Z} }\|\mathcal{C}\|_{\circledast}+\lambda\|\mathbf{E}\|_{2,1}+\beta\operatorname{Tr}(\mathbf{B L B}^{\top}) \\
 			&\text { s.t. } \mathbf{X}=\mathbf{X Z}+\mathbf{E}, \mathcal{C}(:,:,1)=\mathbf{Z}, \mathcal{C}(:,:,2)=\mathbf{B},  \\
-			&\mathbf{B}_{i j}=s,(i, j) \in \Omega_{m}, \mathbf{B}_{i j}=-s,(i, j) \in \Omega_{c}. %\mathbf{B}=\mathbf{B}^{\top}. 
+			&\mathbf{B}_{i j}=s,(i, j) \in \Omega_{m}, \mathbf{B}_{i j}=-s,(i, j) \in \Omega_{c}.
 		\end{aligned}
 		\label{eq_origin}
 	\end{equation}
@@ -281,29 +208,9 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
     \end{itemize}
 \end{frame}
 
-% \begin{frame}{后处理}
-
-% \begin{itemize}
-%     \item 为了更好地利用监督信息，用增强的$\mathbf{B}$进一步修正$\mathbf{Z}$
-% \begin{equation}
-% 		\mathbf{Z}_{ij}\leftarrow\left\{\begin{aligned}
-% 			&1-\left(1-\mathbf{B}_{i j}\right)\left(1-\mathbf{Z}_{i j}\right), ~~\text{if}~ \mathbf{B}_{i j} \geq 0 \\ 
-% 			&\left(1+\mathbf{B}_{i j}\right) \mathbf{Z}_{i j}, ~~\text{if}~ \mathbf{B}_{i j}<0.
-% 		\end{aligned}\right.
-% 		\label{eqn_repair}
-% 	\end{equation}
-	
-% 	\item 当$\mathbf{B}_{i j}>0$($<0$)时，$\mathbf{x}_i$和$\mathbf{x}_j$属于同一类(不同类)，Eq. \eqref{eqn_repair}将增大(减少)$\mathbf{Z}_{ij}$。
-% 	\vspace{0.2cm}
-% 	\item 最后，对$\mathbf{W}\!=\!(|\mathbf{Z}|\!+\!|\mathbf{Z}^{\!\top}|)\!/2$谱聚类得到最终的聚类结果。
-% \end{itemize}
-
-% \end{frame}
-
 \subsection{优化算法}
 
 \begin{frame}{增广拉格朗日乘子法求解Eq. \eqref{eq_origin}}
-% 这一页讲述的时候，重点讲求解思想。
 
     为了使用ADMM，引入辅助变量$\mathbf{D}$，得到Eq. \eqref{eq_origin}的等价问题
 	\begin{equation}
@@ -330,7 +237,6 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
 \begin{frame}{算法伪代码}
 \begin{algorithm}[H]
         \small
-		%\textsl{}\setstretch{1.8}
 		\renewcommand{\algorithmicrequire}{\textbf{输入：}}
 		\renewcommand{\algorithmicensure}{\textbf{Output:}}
 		\caption{利用ADMM求解Eq. \eqref{eq_origin}}
@@ -339,7 +245,6 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
 			\REQUIRE 数据 $\mathbf{X}$，成对约束 $\Omega_{m}$，$\Omega_{c}$，超参数 $\lambda$，$\beta$. 
 			
 			\STATE 初始化: $\mathcal{\mathcal{C}}_{0}\!=\!\mathcal{Y}_{2,0}\!=\!0$, $\mathbf{B}_{0}\!=\!\mathbf{Z}_{0}=\mathbf{D}_{0}\!=\!\mathbf{E}_{0}\!=\!\mathbf{Y}_{1,0}\!=\!\mathbf{Y}_{3,0}\!=\!0, \rho\!=\!1.1, \mu_{0}\!=\!1 \mathrm{e}\!-\!3, \mu_{\max }\!=\!1 \mathrm{e} 10$.
-			%$\epsilon\!=\!1\mathrm{e}\!-\!3$
 			
 			\REPEAT
 			
@@ -353,54 +258,6 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
 		\end{algorithmic}  
 	\end{algorithm}
 \end{frame}
-
-% \section{不准确约束下基于张量低秩表示的半监督子空间聚类方法}
-
-% \begin{frame}{去噪模型}
-%     \begin{itemize}
-
-%             \item 在实际应用中可能存在一些不准确约束，这些错误约束会被约束传播放大，从而影响聚类模型的性能。
-%             \vspace{0.2cm}
-%             \item 可以将不准确的约束编码为矩阵 $\mathbf{S}\in \mathbb{R}^{n\times n}$，并在其上施加稀疏正则化以去噪。原模型重新表述为：
-%             \vspace{-0.1cm}
-%             \begin{equation}
-%                 \begin{aligned}
-%                     \min_{\mathcal{C}, \mathbf{E}, \mathbf{B}, \mathbf{Z} }&\quad\|\mathcal{C}\|_{\circledast}+\lambda\|\mathbf{E}\|_{2,1}+\beta\operatorname{Tr}(\mathbf{B L B}^{\top})+\gamma \|\mathbf{S}\|_{2,1} \\
-%                     \text{s.t.}&\quad\mathbf{X}=\mathbf{X Z}+\mathbf{E},\mathbf{D}=\mathbf{B}+\mathbf{S}, \mathcal{C}(:,:,1)=\mathbf{Z}, \mathcal{C}(:,:,2)=\mathbf{B},  \\
-%                     &\quad\mathbf{D}_{0,i j}=s,(i, j) \in \Omega_{m}, \mathbf{D}_{0,i j}=-s,(i, j) \in \Omega_{c},
-%                 \end{aligned}
-%                 \label{eq_origin_noise}
-%             \end{equation}
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{优化算法}
-%     \begin{algorithm}[H]
-%         \small
-% 		%\textsl{}\setstretch{1.8}
-% 		\renewcommand{\algorithmicrequire}{\textbf{输入：}}
-% 		\renewcommand{\algorithmicensure}{\textbf{Output:}}
-% 		\caption{利用ADMM求解Eq. \eqref{eq_origin_noise}}
-% 		\label{alg1}
-% 		\begin{algorithmic}[1]
-% 			\REQUIRE 数据 $\mathbf{X}$，成对约束 $\Omega_{m}$，$\Omega_{c}$，超参数 $\lambda$，$\beta$，$\gamma$. 
-			
-% 			\STATE 初始化: $\mathcal{\mathcal{C}}^{(0)}=\mathcal{Y}_{2}^{(0)}=0$, $\mathbf{B}^{(0)}=\mathbf{Z}^{(0)}=\mathbf{D}^{(0)}=\mathbf{E}^{(0)}=\mathbf{S}^{(0)}=\mathbf{Y}_{1}^{(0)}=\mathbf{Y}_{3}^{(0)}=0, \rho=1.1, \mu^{(0)}=1 \mathrm{e}-3, \mu_{\max }=1 \mathrm{e} 10$.
-% 			%$\epsilon\!=\!1\mathrm{e}\!-\!3$
-			
-% 			\REPEAT
-			
-% 			\STATE 更新 $\mathcal{C}_{k+1}$;
-% 			\STATE 更新 $\mathbf{Z}_{k+1}$;
-% 			\STATE 更新 $\mathbf{B}_{k+1}$;
-% 			\STATE 更新 $\mathbf{D}_{k+1}$;
-% 			\STATE 更新 $\mathbf{E}_{k+1}$;
-%                 \STATE 更新 $\mathbf{S}_{k+1}$;
-% 			\STATE 更新 $\mathbf{Y}_{1,k+1}$, $\mathcal{Y}_{2,k+1}$, $\mathbf{Y}_{3,k+1}$, 和 $\mu_{k+1}$;
-% 			\UNTIL 收敛
-% 		\end{algorithmic}  
-% 	\end{algorithm}
-% \end{frame}
 
 
 \section{实验研究}
@@ -446,7 +303,6 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
 \begin{frame}{聚类性能比较}
     \vspace{-0.2cm}
     \begin{figure}[!t]
-		%\centering
 		\subfloat[]{\includegraphics[width=2.4cm]{pic/2a.eps}
 			\label{fig_1_case}}
 		\subfloat[]{\includegraphics[width=2.4cm]{pic/2b.eps}
@@ -474,7 +330,6 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
 \begin{frame}{相似矩阵可视化}
 
     \begin{figure}[!t]
-		%\centering
 		\subfloat[Proposed]{\includegraphics[width=2.2cm]{pic/4a.eps}
 			\label{fig_tnn}}
 		\subfloat[LRR]{\includegraphics[width=2.2cm]{pic/4b.eps}
@@ -501,10 +356,8 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
 \begin{frame}{超参数分析}
     \vspace{-0.5cm}
     \begin{figure}[!t]
-		%\centering
 		\subfloat[]{\includegraphics[width=3cm]{pic/5a.eps}}
 		\subfloat[]{\includegraphics[width=3cm]{pic/5b.eps}}
-		%\hfil
 		\subfloat[]{\includegraphics[width=3cm]{pic/5c.eps}}
 		\caption{超参数对所提出的方法聚类准确率的影响}
 		\label{fig_3}
@@ -520,17 +373,11 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
 \vspace{-0.25cm}
 \begin{table}[H]
     \tiny
-		%\begin{table}[htbp]
-		%% increase table row spacing, adjust to taste
 		\renewcommand{\arraystretch}{1.4}
 		\setlength\tabcolsep{2pt}
-		% if using array.sty, it might be a good idea to tweak the value of
-		% \extrarowheight as needed to properly center the text within the cells
 		\caption{消融实验结果}
 		\label{table_2}
 		\centering
-		%% Some packages, such as MDW tools, offer better commands for making tables
-		%% than the plain LaTeX2e tabular which is used here.
 		\begin{tabular}{ccccccccccc}
 			\hline
 			百分比 & \textbf{Accuracy} & ORL & YaleB & COIL20 & Isolet & MNIST & Alphabet & BF0502 & Notting-Hill & \textbf{平均值}\\ 
@@ -567,7 +414,6 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
 \begin{frame}{收敛行为比较}
 
 \begin{figure}[!t]
-		%\centering
 		\subfloat[]{\includegraphics[width=2.4cm]{pic/6a.eps}
                 \label{fig_1_converge}}
             \subfloat[]{\includegraphics[width=2.4cm]{pic/6b.eps}
@@ -601,14 +447,9 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
 
 \end{frame}
 
-% \begin{frame}{不准确约束下聚类性能的比较}
-
-% \end{frame}
-
 \section{参考文献}
 
 \begin{frame}{参考文献}
-    % \scriptsize
     \small
     \bibliography{reference_zkj}
     \bibliographystyle{IEEEtran}  
