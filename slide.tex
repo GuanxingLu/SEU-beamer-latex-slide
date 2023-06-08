@@ -65,7 +65,7 @@
     \begin{itemize}
         \item 首次提出了一种新颖的基于张量低秩表示的半监督子空间聚类模型。
         \vspace{0.05cm}
-        \item 考虑到实际应用中的不准确约束，进一步提出了鲁棒改进模型。
+        \item 考虑到实际应用中的不准确约束，进一步提出了鲁棒去噪聚类模型。
         \vspace{0.05cm}
         \item 所提出的模型在8个常用数据集、7个基线算法和2个评价指标上都取得了领先。
         \vspace{0.05cm}
@@ -79,15 +79,21 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
 
 \subsection{子空间聚类}
 
-\begin{frame}{课题简介}
+\begin{frame}{子空间聚类简介}
+    \vspace{-0.3cm}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.25\linewidth]{pic/zhiguantu4_datapart.pdf}
+        \vspace{-0.4cm}
+        \caption{高维数据可以被一组线性子空间的并集近似表示}
+    \end{figure}
 
+    \vspace{-0.3cm}
     \begin{itemize}
-        \item 高维数据广泛存在于通信信道估计、图像处理、DNA微阵列技术等领域。
-        %高维数据在图像处理，DNA微阵列等技术中很常见。%但是基于核函数的聚类很难自适应捕捉高维数据的分布。
-        
-        \vspace{0.4cm}
-        \item 高维数据通常可以用一组线性子空间的并集近似，但某个样本的子空间归属是未知的\footnote{\scriptsize\cite{5714408} R. Vidal, “Subspace Clustering,” IEEE SPM, vol. 28, no. 2, Art. no. 2, 2011.}。
-        \vspace{0.4cm}
+        \item 高维数据广泛存在于通信信道估计、图像处理等领域。
+        \vspace{0.1cm}
+        \item 这些数据通常可以用一组线性子空间的并集近似，但某个样本的子空间归属是未知的\footnote{\scriptsize\cite{5714408} R. Vidal, “Subspace Clustering,” IEEE SPM, vol. 28, no. 2, Art. no. 2, 2011.}。
+        \vspace{0.1cm}
         \item 子空间聚类可以为数据样本找到对应的子空间归属，是高维数据建模的重要工具。
         
     \end{itemize}
@@ -112,20 +118,26 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
 
 \subsection{半监督子空间聚类}
 
-\begin{frame}{半监督信息}
+\begin{frame}{半监督子空间聚类简介}
 
-    \vspace{-0.8cm}
-    \begin{figure}[!t]
-		%\centering
-		\subfloat[样本点分布]{\includegraphics[width=3cm]{pic/zhiguantu4_datapart.pdf}
-			\label{fig_data_sample}}
-		\subfloat[监督信息]{\includegraphics[width=3cm]{pic/zhiguantu4_superpart.pdf}
-			\label{fig_supervision}}
-		\label{fig_data}
-	\end{figure}
+ %    \vspace{-0.8cm}
+ %    \begin{figure}[!t]
+	% 	%\centering
+	% 	\subfloat[样本点分布]{\includegraphics[width=3cm]{pic/zhiguantu4_datapart.pdf}
+	% 		\label{fig_data_sample}}
+	% 	\subfloat[监督信息]{\includegraphics[width=3cm]{pic/zhiguantu4_superpart.pdf}
+	% 		\label{fig_supervision}}
+	% 	\label{fig_data}
+	% \end{figure}
+
+    \vspace{-0.3cm}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.25\linewidth]{pic/zhiguantu4_superpart.pdf}
+        \caption{成对约束监督信息}
+    \end{figure}
 
     \begin{itemize}
-        
         \item 在实际应用中，一些监督信息是易获取的，如某些样本之间的成对关系。
         
         \item 这些监督信息可以表示成“必须链接”或“不能链接”的成对约束，有助于得到更有判别力的聚类结果。
@@ -180,6 +192,9 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
 \subsection{基于张量低秩表示的半监督子空间聚类模型}
 
 \begin{frame}{所提出模型总览}
+% 这个图重点讲。讲清楚之后，后面可以直接接到所提出的模型（或者说这个图的数学化表述）。后面在接求解算法即可。
+% 所提出的
+
     \begin{figure}[htpb]
         \centering
         \includegraphics[width=1\linewidth]{pic/1.pdf}
@@ -288,6 +303,7 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
 \subsection{优化算法}
 
 \begin{frame}{增广拉格朗日乘子法求解Eq. \eqref{eq_origin}}
+% 这一页讲述的时候，重点讲求解思想。
 
     为了使用ADMM，引入辅助变量$\mathbf{D}$，得到Eq. \eqref{eq_origin}的等价问题
 	\begin{equation}
@@ -399,8 +415,8 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
     \scriptsize
 	\renewcommand{\arraystretch}{1.1}
 	\caption{各数据集的统计指标}
+        \vspace{-0.4cm}
 	\label{table_1}
-        \vspace{-0.1cm}
 	\centering
 	\begin{tabular}{ccccc}
 		\hline
@@ -427,7 +443,7 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
 
 \subsection{实验结果}
 
-\begin{frame}{聚类性能的比较}
+\begin{frame}{聚类性能比较}
     \vspace{-0.2cm}
     \begin{figure}[!t]
 		%\centering
@@ -448,7 +464,7 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
 			\label{fig_13_case}}
       \subfloat[]{\includegraphics[width=2.4cm]{pic/2h.eps}
 			\label{fig_15_case}}
-		\caption{八个数据集上不同方法的聚类准确率比较}
+		\caption{不同方法在八个数据集上的聚类准确率比较}
 		\label{fig_acc}
 	\end{figure}
 
@@ -501,12 +517,12 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
 \end{frame}
 
 \begin{frame}{消融实验}
-
+\vspace{-0.25cm}
 \begin{table}[H]
     \tiny
 		%\begin{table}[htbp]
 		%% increase table row spacing, adjust to taste
-		\renewcommand{\arraystretch}{1.1}
+		\renewcommand{\arraystretch}{1.4}
 		\setlength\tabcolsep{2pt}
 		% if using array.sty, it might be a good idea to tweak the value of
 		% \extrarowheight as needed to properly center the text within the cells
@@ -548,7 +564,7 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
 
 \end{frame}
 
-\begin{frame}{收敛行为}
+\begin{frame}{收敛行为比较}
 
 \begin{figure}[!t]
 		%\centering
@@ -574,7 +590,7 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
 	\end{figure}
 \end{frame}
 
-\begin{frame}{运行时间}
+\begin{frame}{运行时间比较}
 
 \begin{figure}[htbp]
     \centering
@@ -591,8 +607,9 @@ low-rank representation,” IEEE TCSVT, pp. 1–1, 2023.}。
 
 \section{参考文献}
 
-\begin{frame}[allowframebreaks]
-    \scriptsize
+\begin{frame}{参考文献}
+    % \scriptsize
+    \small
     \bibliography{reference_zkj}
     \bibliographystyle{IEEEtran}  
 \end{frame}
